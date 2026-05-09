@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vyntra Media - Creative Agency Portfolio Clone</title>
+  <meta name="description" content="A standalone HTML clone inspired by the Vyntra Media creative agency website." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://framerusercontent.com/images/VD3ygwjX5DbcWzaqdIGJVyR0lUA.png">
+  <style>
+    :root {
+      --dark: #3b001b;
+      --ink: #181a12;
+      --cream: #fffef5;
+      --paper: #fefae7;
+      --yellow: #ffe878;
+      --soft-yellow: #fafabf;
+      --pink: #f09fa8;
+      --bubble-pink: #f6c2f4;
+      --mint: #c0ecbf;
+      --lavender: #c7caff;
+      --peach: #fae0be;
+      --purple: #cdabeb;
+      --blue: #8cc6ee;
+      --shadow: 0 12px 0 var(--dark);
+      --radius: 32px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--dark);
+      background: var(--paper);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+
+    .grain {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      opacity: .05;
+      mix-blend-mode: multiply;
+      background-image:
+        radial-gradient(circle at 15% 10%, #000 0 1px, transparent 1px),
+        radial-gradient(circle at 85% 20%, #000 0 1px, transparent 1px),
+        radial-gradient(circle at 45% 80%, #000 0 1px, transparent 1px);
+      background-size: 17px 19px, 23px 29px, 31px 37px;
+    }
+
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 50;
+      width: min(calc(100% - 32px), 1080px);
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px;
+      border: 3px solid var(--dark);
+      border-radius: 26px;
+      background: rgba(254, 250, 231, .88);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 7px 0 var(--dark);
+    }
+
+    .brand-mark {
+      min-width: 132px;
+      padding: 10px 18px;
+      border: 2px solid var(--dark);
+      border-radius: 18px;
+      background: var(--mint);
+      font-family: Oswald, sans-serif;
+      font-size: 22px;
+      letter-spacing: .03em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border: 2px solid rgba(59, 0, 27, .16);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .34);
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      border-radius: 13px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .nav-links a:hover { background: var(--soft-yellow); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 3px solid var(--dark);
+      border-width: 3px 3px 10px;
+      border-radius: 20px;
+      background: var(--soft-yellow);
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .2s ease, border-bottom-width .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(4px);
+      border-bottom-width: 6px;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--dark);
+      border-radius: 16px;
+      background: var(--yellow);
+      font-size: 24px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    main { overflow: hidden; }
+
+    .section {
+      position: relative;
+      padding: 96px 22px;
+    }
+
+    .wrap {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 128px 22px 80px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255, 254, 245, .96), rgba(254, 250, 231, .98)),
+        radial-gradient(circle at 20% 30%, var(--pink), transparent 24%),
+        radial-gradient(circle at 80% 18%, var(--mint), transparent 26%),
+        radial-gradient(circle at 55% 74%, var(--lavender), transparent 24%);
+    }
+
+    .hero-inner {
+      position: relative;
+      width: min(100%, 1160px);
+      min-height: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wordmark {
+      margin: 0;
+      font-family: Oswald, Impact, sans-serif;
+      font-size: clamp(58px, 12vw, 160px);
+      line-height: .86;
+      letter-spacing: -.055em;
+      color: var(--dark);
+      text-transform: uppercase;
+      transform: scaleX(.9);
+    }
+
+    .tagline {
+      width: min(820px, 100%);
+      margin: 22px auto 28px;
+      font-size: clamp(30px, 5.2vw, 70px);
+      line-height: 1.02;
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+
+    .hero-pill {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      min-width: 118px;
+      height: 118px;
+      padding: 16px;
+      border: 3px solid var(--dark);
+      border-radius: 999px;
+      background: rgba(255, 254, 245, .58);
+      backdrop-filter: blur(7px);
+      box-shadow: 0 8px 0 rgba(59, 0, 27, .9);
+      font-family: "Fragment Mono", monospace;
+      font-size: 15px;
+      font-weight: 700;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-pill:nth-of-type(1) { top: 108px; left: 4%; background: var(--pink); }
+    .hero-pill:nth-of-type(2) { top: 170px; right: 8%; background: var(--lavender); animation-delay: -.8s; }
+    .hero-pill:nth-of-type(3) { bottom: 132px; left: 14%; background: var(--mint); animation-delay: -1.6s; }
+    .hero-pill:nth-of-type(4) { bottom: 108px; right: 10%; background: var(--yellow); animation-delay: -2.4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-18px) rotate(4deg); }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 16px;
+      border: 2px dashed var(--dark);
+      border-radius: 999px;
+      background: var(--soft-yellow);
+      font-family: "Fragment Mono", monospace;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 14px 0 42px;
+      font-family: Oswald, sans-serif;
+      font-size: clamp(52px, 8vw, 120px);
+      line-height: .95;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+    }
+
+    .center { text-align: center; }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+      padding: 24px;
+      border: 3px solid var(--dark);
+      border-radius: var(--radius);
+      background: var(--cream);
+      box-shadow: 0 8px 0 var(--dark);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      justify-content: space-between;
+    }
+
+    .feature-card:nth-child(1) { background: var(--pink); }
+    .feature-card:nth-child(2) { background: var(--mint); }
+    .feature-card:nth-child(3) { background: var(--lavender); }
+
+    .feature-card img {
+      width: 118px;
+      height: 118px;
+      object-fit: contain;
+      align-self: flex-end;
+      filter: drop-shadow(0 8px 0 rgba(59, 0, 27, .15));
+    }
+
+    .feature-card:nth-child(1) img {
+      animation: softFloat 3.3s ease-in-out infinite;
+    }
+
+    .feature-card:nth-child(2) img {
+      animation: petalSpin 5.6s ease-in-out infinite;
+      transform-origin: 50% 50%;
+    }
+
+    .diamond-art {
+      position: relative;
+      align-self: flex-end;
+      width: 118px;
+      height: 118px;
+      margin: 4px 4px 0 0;
+      transform: rotate(45deg);
+      border: 3px solid rgba(255, 255, 255, .9);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .86), rgba(255, 255, 255, .32)),
+        var(--yellow);
+      box-shadow: 12px 12px 0 rgba(59, 0, 27, .2);
+      animation: diamondDrift 4.2s ease-in-out infinite;
+    }
+
+    .diamond-art::before,
+    .diamond-art::after {
+      content: "";
+      position: absolute;
+      inset: 23px;
+      border-radius: 10px;
+      background: var(--dark);
+      opacity: .82;
+    }
+
+    .diamond-art::after {
+      inset: 38px;
+      background: var(--lavender);
+      opacity: 1;
+    }
+
+    @keyframes softFloat {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(-4deg); }
+      50% { transform: translate3d(-8px, -14px, 0) rotate(5deg); }
+    }
+
+    @keyframes petalSpin {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      45% { transform: rotate(18deg) scale(1.07); }
+      70% { transform: rotate(-8deg) scale(.96); }
+    }
+
+    @keyframes diamondDrift {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(45deg) scale(1); }
+      50% { transform: translate3d(8px, -12px, 0) rotate(58deg) scale(1.06); }
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0;
+      color: rgba(59, 0, 27, .78);
+      line-height: 1.6;
+    }
+
+    .marquee {
+      overflow: hidden;
+      padding: 26px 0;
+      border-block: 3px solid var(--dark);
+      background: var(--dark);
+      color: var(--paper);
+    }
+
+    .track {
+      display: flex;
+      width: max-content;
+      gap: 18px;
+      animation: slide 24s linear infinite;
+    }
+
+    .brand-chip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 230px;
+      padding: 14px 18px;
+      border: 2px solid var(--paper);
+      border-radius: 999px;
+      background: rgba(255, 254, 245, .08);
+      font-family: "Fragment Mono", monospace;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .brand-chip img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      background: var(--paper);
+      border-radius: 50%;
+      padding: 7px;
+    }
+
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 70px;
+    }
+
+    .stat {
+      min-height: 180px;
+      padding: 26px 18px;
+      border: 3px solid var(--dark);
+      border-radius: 28px;
+      background: var(--yellow);
+      text-align: center;
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .stat b {
+      display: block;
+      font-family: Oswald, sans-serif;
+      font-size: clamp(56px, 7vw, 92px);
+      line-height: .9;
+    }
+
+    .stat span {
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: .06em;
+    }
+
+    .services { background: var(--cream); }
+
+    .service-layout {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .service-menu {
+      display: grid;
+      gap: 12px;
+    }
+
+    .service-tab {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 76px;
+      padding: 18px 20px;
+      border: 3px solid var(--dark);
+      border-radius: 22px;
+      background: var(--paper);
+      box-shadow: 0 6px 0 var(--dark);
+      cursor: pointer;
+      text-align: left;
+      font-weight: 900;
+    }
+
+    .service-tab.active { background: var(--pink); transform: translateY(3px); box-shadow: 0 3px 0 var(--dark); }
+
+    .service-tab:nth-of-type(2) { background: #F6D6B8; }
+    .service-tab:nth-of-type(3) { background: #B8E3DD; }
+    .service-tab:nth-of-type(4) { background: #E7DFAF; }
+
+    .plus {
+      display: grid;
+      place-items: center;
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--dark);
+      border-radius: 50%;
+      background: var(--yellow);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .service-panel {
+      min-height: 560px;
+      padding: 24px;
+      border: 3px solid var(--dark);
+      border-radius: 34px;
+      background: var(--lavender);
+      box-shadow: var(--shadow);
+    }
+
+    .service-panel h3 {
+      margin-bottom: 8px;
+      font-size: clamp(30px, 4vw, 54px);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 22px 0;
+    }
+
+    .tags span {
+      padding: 9px 12px;
+      border: 2px solid var(--dark);
+      border-radius: 999px;
+      background: var(--cream);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .image-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .image-strip img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border: 3px solid var(--dark);
+      border-radius: 22px;
+      object-fit: cover;
+      background: var(--paper);
+    }
+
+    .why {
+      background: var(--dark);
+      color: var(--paper);
+    }
+
+    .why p { color: rgba(255, 254, 245, .75); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .why-card {
+      overflow: hidden;
+      min-height: 260px;
+      padding: 20px;
+      border: 3px solid var(--paper);
+      border-radius: 28px;
+      background: rgba(255, 254, 245, .08);
+    }
+
+    .why-card img {
+      width: 96px;
+      height: 96px;
+      margin-bottom: 24px;
+      object-fit: contain;
+    }
+
+    .why .eyebrow {
+      color: var(--dark);
+      background: var(--yellow);
+      border-color: var(--paper);
+      box-shadow: 0 4px 0 var(--paper);
+    }
+
+    .why-card:nth-child(1) img { animation: iconBob 3.2s ease-in-out infinite; }
+    .why-card:nth-child(2) img { animation: iconOrbit 4.4s ease-in-out infinite; }
+    .why-card:nth-child(3) img { animation: iconPulse 3.6s ease-in-out infinite; }
+    .why-card:nth-child(4) img { animation: iconTilt 3.8s ease-in-out infinite; }
+
+    @keyframes iconBob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(-4deg); }
+    }
+
+    @keyframes iconOrbit {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      35% { transform: translate(8px, -10px) rotate(8deg); }
+      70% { transform: translate(-5px, 3px) rotate(-6deg); }
+    }
+
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.09) translateY(-8px); }
+    }
+
+    @keyframes iconTilt {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      50% { transform: rotate(10deg) translateY(-10px); }
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .project {
+      position: relative;
+      overflow: hidden;
+      border: 3px solid var(--dark);
+      border-radius: 34px;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+
+    .project figure {
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border-bottom: 3px solid var(--dark);
+    }
+
+    .project figure img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .45s ease;
+    }
+
+    .project:hover img { transform: scale(1.06) rotate(1deg); }
+
+    .project-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px;
+    }
+
+    .case-link {
+      white-space: nowrap;
+      padding: 12px 15px;
+      border: 2px solid var(--dark);
+      border-radius: 999px;
+      background: var(--yellow);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .process {
+      background:
+        linear-gradient(180deg, var(--paper), var(--peach));
+    }
+
+    .process-card {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 24px;
+      padding: 24px;
+      border: 3px solid var(--dark);
+      border-radius: 36px;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+
+    .step-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .step-tabs button {
+      width: 54px;
+      height: 54px;
+      border: 3px solid var(--dark);
+      border-radius: 50%;
+      background: var(--paper);
+      box-shadow: 0 5px 0 var(--dark);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .step-tabs button.active {
+      background: var(--mint);
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 var(--dark);
+    }
+
+    .process-copy h3 {
+      font-size: clamp(32px, 4vw, 64px);
+      margin-bottom: 16px;
+    }
+
+    .process-art {
+      min-height: 360px;
+      border: 3px solid var(--dark);
+      border-radius: 30px;
+      background: var(--pink);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .process-art img {
+      width: 80%;
+      max-height: 320px;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 0 rgba(59, 0, 27, .16));
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .price-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 460px;
+      padding: 24px;
+      border: 3px solid var(--dark);
+      border-radius: 32px;
+      background: var(--cream);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .price-card.featured {
+      background: var(--yellow);
+      transform: translateY(-14px);
+    }
+
+    .price {
+      margin: 18px 0;
+      font-family: Oswald, sans-serif;
+      font-size: 68px;
+      line-height: .9;
+      letter-spacing: -.03em;
+    }
+
+    .price small {
+      font-family: Inter, sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .checks {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 24px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checks li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-weight: 700;
+      color: rgba(59, 0, 27, .82);
+    }
+
+    .checks li::before {
+      content: "";
+      flex: 0 0 18px;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      border: 2px solid var(--dark);
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: inset 0 0 0 4px var(--cream);
+    }
+
+    .price-card .btn { margin-top: auto; }
+
+    .testimonials {
+      background: var(--peach);
+    }
+
+    .testimonial-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .quote {
+      min-height: 340px;
+      padding: 18px;
+      border: 3px solid var(--dark);
+      border-radius: 32px;
+      background: var(--cream);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding: 12px;
+      border: 2px solid var(--dark);
+      border-radius: 24px;
+      background: var(--yellow);
+    }
+
+    .person img {
+      width: 58px;
+      height: 58px;
+      border: 2px solid var(--dark);
+      border-radius: 18px;
+      object-fit: cover;
+    }
+
+    .quote blockquote {
+      margin: 0;
+      padding: 18px;
+      border: 2px double var(--dark);
+      border-radius: 24px;
+      background: var(--pink);
+      font-size: 18px;
+      line-height: 1.55;
+      font-weight: 800;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+      width: min(100%, 900px);
+      margin: 0 auto;
+    }
+
+    details {
+      border: 3px solid var(--dark);
+      border-radius: 24px;
+      background: var(--cream);
+      box-shadow: 0 6px 0 var(--dark);
+      overflow: hidden;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 22px;
+      font-weight: 900;
+      font-size: 19px;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    details p {
+      padding: 0 22px 22px;
+    }
+
+    .cta {
+      padding: 90px 22px;
+      background: var(--dark);
+      color: var(--paper);
+      text-align: center;
+    }
+
+    .cta p {
+      width: min(720px, 100%);
+      margin: 0 auto 28px;
+      color: rgba(255, 254, 245, .78);
+      font-size: 18px;
+    }
+
+    .cta .section-title { margin-bottom: 20px; }
+
+    footer {
+      padding: 34px 22px 42px;
+      border-top: 3px solid var(--paper);
+      background: var(--dark);
+      color: var(--paper);
+    }
+
+    .footer-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
+      padding: 10px 12px;
+      border: 2px solid var(--paper);
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .nav { align-items: flex-start; }
+      .menu-toggle { display: grid; place-items: center; margin-left: auto; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 78px;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--paper);
+        border: 3px solid var(--dark);
+      }
+      .nav-links.open { display: flex; }
+      .nav > .btn { display: none; }
+      .benefit-grid,
+      .why-grid,
+      .pricing-grid,
+      .testimonial-row { grid-template-columns: repeat(2, 1fr); }
+      .service-layout,
+      .process-card { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .hero-inner { min-height: 620px; }
+      .hero-pill { transform: scale(.82); }
+    }
+
+    @media (max-width: 680px) {
+      .section { padding: 72px 16px; }
+      .hero { padding-top: 118px; }
+      .wordmark { font-size: clamp(54px, 18vw, 86px); letter-spacing: -.055em; }
+      .tagline { font-size: 34px; }
+      .hero-pill { display: none; }
+      .benefit-grid,
+      .why-grid,
+      .portfolio-grid,
+      .pricing-grid,
+      .testimonial-row,
+      .stats { grid-template-columns: 1fr; }
+      .image-strip { grid-template-columns: 1fr 1fr; }
+      .price-card.featured { transform: none; }
+      .project-body { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <nav class="nav">
+    <a class="brand-mark" href="#hero">VYNTRA MEDIA</a>
+    <button class="menu-toggle" aria-label="Toggle menu">+</button>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="btn" href="#contact">Get Template</a>
+  </nav>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <div class="hero-pill">Creative</div>
+        <div class="hero-pill">Timeless</div>
+        <div class="hero-pill">Edgy</div>
+        <div class="hero-pill">Playful</div>
+        <h1 class="wordmark">VYNTRA MEDIA</h1>
+        <p class="tagline">Your brand deserves to be seen, heard, and remembered.</p>
+        <a class="btn" href="#services">View Services</a>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="wrap">
+        <div class="benefit-grid">
+          <article class="feature-card">
+            <img src="https://framerusercontent.com/images/Bf3S7lrMf4RLc0FEbNVgXCJTvI.svg" alt="">
+            <div>
+              <h3>Fast and dependable delivery</h3>
+              <p>Creative momentum without endless waiting. Launch plans stay sharp and moving.</p>
+            </div>
+          </article>
+          <article class="feature-card">
+            <img src="https://framerusercontent.com/images/qONRBbHfysnmWnOq6Vnl2OUAl3E.svg" alt="">
+            <div>
+              <h3>Clear pricing from day one</h3>
+              <p>No mystery fees or fuzzy scopes. You know what is included before work begins.</p>
+            </div>
+          </article>
+          <article class="feature-card">
+            <div class="diamond-art" aria-hidden="true"></div>
+            <div>
+              <h3>Everything under one roof</h3>
+              <p>Brand, web, content, and marketing shaped by one joined-up creative team.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="Brand marquee">
+      <div class="track">
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/3Y1x3Iz9CnzoCeLjfRflZMOiF0.svg?width=100&height=40" alt="">LunarLab</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/6QEz8kJbwqWFzbNDcgcMwaBk7Jk.svg?width=176&height=40" alt="">VibeCraft</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/jegT6HCbl1FaE0PyMBA7awMdCa8.svg?width=50&height=40" alt="">Sunbeam</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/duZwjP73YzY6931zuqasWWfWDZY.svg?width=163&height=42" alt="">NeonVibe</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/mGAxAGDBjt0JHg8MI0F9P9FkW0g.svg?width=54&height=41" alt="">HorizonHue</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/3Y1x3Iz9CnzoCeLjfRflZMOiF0.svg?width=100&height=40" alt="">LunarLab</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/6QEz8kJbwqWFzbNDcgcMwaBk7Jk.svg?width=176&height=40" alt="">VibeCraft</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/jegT6HCbl1FaE0PyMBA7awMdCa8.svg?width=50&height=40" alt="">Sunbeam</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/duZwjP73YzY6931zuqasWWfWDZY.svg?width=163&height=42" alt="">NeonVibe</div>
+        <div class="brand-chip"><img src="https://framerusercontent.com/images/mGAxAGDBjt0JHg8MI0F9P9FkW0g.svg?width=54&height=41" alt="">HorizonHue</div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="wrap center">
+        <span class="eyebrow">Numbers</span>
+        <h2 class="section-title">We built the rocket</h2>
+        <div class="stats">
+          <div class="stat"><b data-count="150">0</b><span>Brands launched</span></div>
+          <div class="stat"><b data-count="320">0</b><span>Projects delivered</span></div>
+          <div class="stat"><b data-count="900">0</b><span>Moodboards made</span></div>
+          <div class="stat"><b data-count="99">0</b><span>Happy clients</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services reveal" id="services">
+      <div class="wrap">
+        <span class="eyebrow">Services</span>
+        <h2 class="section-title">What we do really well</h2>
+        <div class="service-layout">
+          <div class="service-menu">
+            <button class="service-tab active" data-service="0">Branding & Identity <span class="plus">+</span></button>
+            <button class="service-tab" data-service="1">Web Design & Development <span class="plus">+</span></button>
+            <button class="service-tab" data-service="2">Content Creation <span class="plus">+</span></button>
+            <button class="service-tab" data-service="3">Digital Marketing <span class="plus">+</span></button>
+          </div>
+          <article class="service-panel">
+            <h3 id="serviceTitle">Branding & Identity</h3>
+            <p id="serviceIntro">Distinctive brand systems for teams that want to look intentional, memorable, and ready for the next stage.</p>
+            <div class="tags" id="serviceTags"></div>
+            <p id="serviceBody">We shape the visual language, strategy, logo suite, and everyday rules that make your brand easier to recognize and easier to trust.</p>
+            <div class="image-strip" id="serviceImages"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section why reveal">
+      <div class="wrap">
+        <span class="eyebrow">Benefits</span>
+        <h2 class="section-title">Why we are the best</h2>
+        <div class="why-grid">
+          <article class="why-card"><img src="https://framerusercontent.com/images/YcyG9QsC7RV1Onc50wyEXquv1k.svg?width=40&height=41" alt=""><h3>Creative Sparks</h3><p>Ideas with enough personality to make the brand stick.</p></article>
+          <article class="why-card"><img src="https://framerusercontent.com/images/ZokCuPJkR8AKgTToaXlDYY95I.svg?width=40&height=40" alt=""><h3>Design That Delivers</h3><p>Visual choices made for growth, clarity, and conversion.</p></article>
+          <article class="why-card"><img src="https://framerusercontent.com/images/Kjci2ZiHnCXWVjKZxU9rwu3GSfI.svg?width=40&height=40" alt=""><h3>Flexible Systems</h3><p>Built to adapt as the market and your team evolve.</p></article>
+          <article class="why-card"><img src="https://framerusercontent.com/images/qc6WiaOLMJCgLjRA2nE1Poq3zLk.svg?width=49&height=48" alt=""><h3>Detail Obsessed</h3><p>Every piece is measured, refined, and made to feel deliberate.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="portfolio">
+      <div class="wrap">
+        <span class="eyebrow">Portfolio</span>
+        <h2 class="section-title">Look what we made</h2>
+        <div class="portfolio-grid">
+          <article class="project">
+            <figure><img src="https://framerusercontent.com/images/3YuYaBzIMHLaGLwS3ln3HFXNJT8.png?scale-down-to=1024" alt="Coffee branding project"></figure>
+            <div class="project-body"><h3>Bold Brew Coffee Co.</h3><a class="case-link" href="#">View Case Study</a></div>
+          </article>
+          <article class="project">
+            <figure><img src="https://framerusercontent.com/images/KI7aSRP3L2vttQ79sArwUunvcBk.png?scale-down-to=1024" alt="Fitness brand project"></figure>
+            <div class="project-body"><h3>FlexFit Studio Branding</h3><a class="case-link" href="#">View Case Study</a></div>
+          </article>
+          <article class="project">
+            <figure><img src="https://framerusercontent.com/images/LLuYxCsy3pbJXfNxEzJjpEg5yEc.png?scale-down-to=1024" alt="Logistics branding project"></figure>
+            <div class="project-body"><h3>SpeedShip Logistics</h3><a class="case-link" href="#">View Case Study</a></div>
+          </article>
+          <article class="project">
+            <figure><img src="https://framerusercontent.com/images/ODiwxn6ULNw3K5b6t4uahxjLkPQ.png?scale-down-to=1024" alt="Cosmetics branding project"></figure>
+            <div class="project-body"><h3>BloomBerry Cosmetics</h3><a class="case-link" href="#">View Case Study</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process reveal" id="process">
+      <div class="wrap">
+        <span class="eyebrow">Process</span>
+        <h2 class="section-title">Our not so secret sauce</h2>
+        <div class="process-card">
+          <div class="process-copy">
+            <div class="step-tabs">
+              <button class="active" data-step="0">1</button>
+              <button data-step="1">2</button>
+              <button data-step="2">3</button>
+              <button data-step="3">4</button>
+            </div>
+            <h3 id="stepTitle">Kickoff & Coffee Chats</h3>
+            <p id="stepText">We learn your goals, audience, tone, and constraints, then map the creative direction before the heavy lifting starts.</p>
+          </div>
+          <div class="process-art">
+            <img id="stepImage" src="https://framerusercontent.com/images/2cHJ20WYKW7vPzurrfuEBbg.png?width=1024&height=1010" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="pricing">
+      <div class="wrap">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="section-title">Pick your creative lane</h2>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <h3>Starter Spark</h3>
+            <p>For founders who need a polished launch kit.</p>
+            <div class="price">$999<small>/project</small></div>
+            <ul class="checks">
+              <li>Logo direction</li>
+              <li>Color and type kit</li>
+              <li>Mini landing page</li>
+              <li>One revision sprint</li>
+            </ul>
+            <a class="btn" href="#contact">Start</a>
+          </article>
+          <article class="price-card featured">
+            <h3>Brand Builder</h3>
+            <p>For teams ready for a complete public-facing system.</p>
+            <div class="price">$2.9k<small>/project</small></div>
+            <ul class="checks">
+              <li>Brand identity system</li>
+              <li>Responsive website</li>
+              <li>Content direction</li>
+              <li>Marketing launch assets</li>
+            </ul>
+            <a class="btn" href="#contact">Choose Plan</a>
+          </article>
+          <article class="price-card">
+            <h3>Growth Studio</h3>
+            <p>For companies that want ongoing creative output.</p>
+            <div class="price">$6k<small>/month</small></div>
+            <ul class="checks">
+              <li>Dedicated design squad</li>
+              <li>Campaign creative</li>
+              <li>Monthly strategy review</li>
+              <li>Priority production queue</li>
+            </ul>
+            <a class="btn" href="#contact">Book</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section testimonials reveal">
+      <div class="wrap">
+        <span class="eyebrow">Testimonials</span>
+        <h2 class="section-title">Kind words, loud results</h2>
+        <div class="testimonial-row">
+          <article class="quote">
+            <div class="person"><img src="https://framerusercontent.com/images/ciqeScb6bZagxmIXqN70lJt6x10.jpg?scale-down-to=512&width=3440&height=3440" alt=""><strong>Callum Yates</strong></div>
+            <blockquote>The team gave our brand a sharper voice and a visual system that finally feels like us.</blockquote>
+          </article>
+          <article class="quote">
+            <div class="person"><img src="https://framerusercontent.com/images/NE0HbZCpk08RqUBmljkId4i3oEw.jpg?scale-down-to=512&width=1248&height=1233" alt=""><strong>Jasper Lowell</strong></div>
+            <blockquote>The process was direct, creative, and surprisingly smooth. We launched faster than expected.</blockquote>
+          </article>
+          <article class="quote">
+            <div class="person"><img src="https://framerusercontent.com/images/Zm4yodZZxdIXJhenN7bdKUq5KM.jpg?width=144&height=147" alt=""><strong>Lowell Vance</strong></div>
+            <blockquote>Every detail felt considered. The final identity looked premium without losing our personality.</blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="faq">
+      <div class="wrap center">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="section-title">Tiny questions, big answers</h2>
+        <div class="faq-list">
+          <details open>
+            <summary>How close is this to the original Framer page?</summary>
+            <p>It mirrors the page structure, loud type, soft cream background, chunky borders, playful cards, marquees, portfolio blocks, pricing, FAQ, and many of the original hosted assets.</p>
+          </details>
+          <details>
+            <summary>Does it need a build tool?</summary>
+            <p>No. This is a single HTML file with embedded CSS and JavaScript. It can open directly in a browser.</p>
+          </details>
+          <details>
+            <summary>Can the remote images be downloaded locally?</summary>
+            <p>Yes. The current file references Framer-hosted assets so it stays light. Those can be mirrored into a local assets folder later.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="wrap">
+        <h2 class="section-title">Ready to make something memorable?</h2>
+        <p>Bring the brief, the wild idea, or the messy brand folder. Vyntra Media turns it into a system people can actually recognize.</p>
+        <a class="btn" href="https://agenius.framer.website/" target="_blank" rel="noopener">Visit Original</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="brand-mark">VYNTRA MEDIA</div>
+      <div class="socials">
+        <a href="#">Instagram</a>
+        <a href="#">Dribbble</a>
+        <a href="#">Facebook</a>
+        <a href="#">LinkedIn</a>
+      </div>
+      <strong>Creative agency portfolio clone</strong>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => navLinks.classList.toggle("open"));
+    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => navLinks.classList.remove("open")));
+
+    const services = [
+      {
+        title: "Branding & Identity",
+        intro: "Distinctive brand systems for teams that want to look intentional, memorable, and ready for the next stage.",
+        body: "We shape the visual language, strategy, logo suite, and everyday rules that make your brand easier to recognize and easier to trust.",
+        tags: ["Logo Design", "Brand Strategy", "Visual Identity", "Guidelines", "Content Marketing"],
+        images: [
+          "https://framerusercontent.com/images/5nl7sazg0CzelFS34Rri4RYsog.png?scale-down-to=512&width=1536&height=1024",
+          "https://framerusercontent.com/images/6eZVqyYqcOCfFZlPmDGLaecTpk.jpg?scale-down-to=1024&width=2175&height=2377",
+          "https://framerusercontent.com/images/YvLoEdY6oYJv1tB16aWO0PWgOA.png?width=1024&height=1010"
+        ],
+        color: "var(--lavender)"
+      },
+      {
+        title: "Web Design & Development",
+        intro: "Websites with polish, speed, and enough personality to feel owned instead of templated.",
+        body: "From UI direction to responsive builds, the work is shaped around clarity, conversion, and a browsing experience that feels effortless.",
+        tags: ["UI UX Design", "Custom Web", "Responsive Design", "Maintenance", "Landing Pages"],
+        images: [
+          "https://framerusercontent.com/images/An0p2q5OhmRu94a32IEHBy3mLU4.png?scale-down-to=1024",
+          "https://framerusercontent.com/images/CwAU7R3lb5jRX49sGhUzhPo0MlY.png?scale-down-to=1024",
+          "https://framerusercontent.com/images/Zdck8IBa7OGbIDAZ0HXimRKVK0.png?width=904&height=1200"
+        ],
+        color: "var(--mint)"
+      },
+      {
+        title: "Content Creation",
+        intro: "Words, visuals, and video ideas built to travel across the channels your audience already uses.",
+        body: "We turn brand stories into scroll-ready assets, campaign copy, editorial visuals, and launch content that keeps the identity consistent.",
+        tags: ["Copywriting", "Photography", "Videography", "Animation", "Story Videos", "Infographics"],
+        images: [
+          "https://framerusercontent.com/images/ksoahdCs5wmZvCWkSavafYdY.png?scale-down-to=1024",
+          "https://framerusercontent.com/images/ILWmxYp9ZPgSfrZrsJkMC6oTsE.jpg?scale-down-to=1024",
+          "https://framerusercontent.com/images/s40F2z4Ij7mUammZE0ZZIRSSVqU.png?scale-down-to=1024"
+        ],
+        color: "var(--pink)"
+      },
+      {
+        title: "Digital Marketing",
+        intro: "Campaign thinking that helps your brand show up in the right place with the right message.",
+        body: "We connect strategy, paid channels, social creative, and measurement so the work is not just attractive, but useful.",
+        tags: ["Social Media", "SEO & SEM", "Email", "Paid Ads", "Influencers", "Blog Strategy"],
+        images: [
+          "https://framerusercontent.com/images/NNPCXTEy29Dqfd5bq3k503a9U.png?scale-down-to=1024",
+          "https://framerusercontent.com/images/oL6KWHpSZtTgFXniPZfKC8nygcY.png?scale-down-to=1024",
+          "https://framerusercontent.com/images/ZkX4C69JxyAyD4KNk3iQC08pCE.png?width=1024&height=1010"
+        ],
+        color: "var(--peach)"
+      }
+    ];
+
+    const title = document.querySelector("#serviceTitle");
+    const intro = document.querySelector("#serviceIntro");
+    const body = document.querySelector("#serviceBody");
+    const tags = document.querySelector("#serviceTags");
+    const images = document.querySelector("#serviceImages");
+    const panel = document.querySelector(".service-panel");
+
+    function renderService(index) {
+      const item = services[index];
+      title.textContent = item.title;
+      intro.textContent = item.intro;
+      body.textContent = item.body;
+      tags.innerHTML = item.tags.map(tag => `<span>${tag}</span>`).join("");
+      images.innerHTML = item.images.map(src => `<img src="${src}" alt="">`).join("");
+      panel.style.background = item.color;
+      document.querySelectorAll(".service-tab").forEach(tab => tab.classList.toggle("active", tab.dataset.service == index));
+    }
+
+    document.querySelectorAll(".service-tab").forEach(tab => {
+      tab.addEventListener("click", () => renderService(Number(tab.dataset.service)));
+    });
+    renderService(0);
+
+    const steps = [
+      {
+        title: "Kickoff & Coffee Chats",
+        text: "We learn your goals, audience, tone, and constraints, then map the creative direction before the heavy lifting starts.",
+        image: "https://framerusercontent.com/images/2cHJ20WYKW7vPzurrfuEBbg.png?width=1024&height=1010"
+      },
+      {
+        title: "Concepts & Direction",
+        text: "The best ideas become moodboards, narratives, logo paths, interface sketches, and campaign angles you can react to.",
+        image: "https://framerusercontent.com/images/71HUXtlPpznGjux39GFgaYmyDY.png?width=1024&height=1010"
+      },
+      {
+        title: "Design, Build, Refine",
+        text: "We turn the chosen direction into a polished system, test it across touchpoints, and tighten details until everything clicks.",
+        image: "https://framerusercontent.com/images/9YXhFjAV8CsnxIj9lpMNut2s.png?width=1024&height=1010"
+      },
+      {
+        title: "Launch & Learn",
+        text: "The finished work ships with guidance, reusable assets, and a clear plan for what to improve after real users meet it.",
+        image: "https://framerusercontent.com/images/NXvTIsvEzRCNFp5eX6y78A2DOs.png?width=1024&height=1010"
+      }
+    ];
+
+    function renderStep(index) {
+      const item = steps[index];
+      document.querySelector("#stepTitle").textContent = item.title;
+      document.querySelector("#stepText").textContent = item.text;
+      document.querySelector("#stepImage").src = item.image;
+      document.querySelectorAll(".step-tabs button").forEach(button => button.classList.toggle("active", button.dataset.step == index));
+    }
+
+    document.querySelectorAll(".step-tabs button").forEach(button => {
+      button.addEventListener("click", () => renderStep(Number(button.dataset.step)));
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: .12 });
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    let counted = false;
+    const countObserver = new IntersectionObserver((entries) => {
+      if (counted || !entries.some(entry => entry.isIntersecting)) return;
+      counted = true;
+      document.querySelectorAll("[data-count]").forEach(el => {
+        const target = Number(el.dataset.count);
+        const suffix = target === 99 ? "%" : "+";
+        let current = 0;
+        const step = Math.max(1, Math.round(target / 54));
+        const timer = setInterval(() => {
+          current = Math.min(target, current + step);
+          el.textContent = current + suffix;
+          if (current >= target) clearInterval(timer);
+        }, 24);
+      });
+    }, { threshold: .3 });
+    countObserver.observe(document.querySelector(".stats"));
+  </script>
+</body>
+</html>
