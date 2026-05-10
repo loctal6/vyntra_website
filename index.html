@@ -192,12 +192,17 @@
     }
 
     .tagline {
-      width: min(820px, 100%);
+      width: min(880px, 100%);
       margin: 22px auto 28px;
-      font-size: clamp(30px, 5.2vw, 70px);
-      line-height: 1.02;
+      font-size: clamp(28px, 4.4vw, 58px);
+      line-height: 1.08;
       font-weight: 900;
       letter-spacing: -.02em;
+    }
+
+    .tagline span {
+      display: block;
+      white-space: nowrap;
     }
 
     .hero-pill {
@@ -226,6 +231,74 @@
     @keyframes float {
       0%, 100% { transform: translateY(0) rotate(-4deg); }
       50% { transform: translateY(-18px) rotate(4deg); }
+    }
+
+    .visual-rings {
+      position: relative;
+      min-height: 640px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        repeating-radial-gradient(circle at 50% 50%,
+          rgba(244, 142, 211, .84) 0 13px,
+          rgba(246, 194, 244, .72) 18px,
+          rgba(255, 254, 245, .96) 30px,
+          rgba(255, 254, 245, .96) 42px,
+          rgba(255, 232, 120, .34) 51px,
+          rgba(255, 254, 245, .92) 62px),
+        linear-gradient(180deg, var(--paper) 0%, #fff9d8 48%, var(--bubble-pink) 100%);
+    }
+
+    .visual-rings::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        linear-gradient(180deg,
+          var(--paper) 0%,
+          rgba(254, 250, 231, .96) 9%,
+          rgba(254, 250, 231, .68) 22%,
+          rgba(254, 250, 231, .12) 41%,
+          transparent 58%),
+        radial-gradient(ellipse at 0% 8%, rgba(254, 250, 231, .96) 0 12%, transparent 32%),
+        radial-gradient(ellipse at 100% 8%, rgba(254, 250, 231, .96) 0 12%, transparent 32%),
+        radial-gradient(circle at 50% 50%, transparent 0 206px, rgba(244, 142, 211, .24) 207px 215px, transparent 226px),
+        radial-gradient(circle at 50% 50%, transparent 0 300px, rgba(244, 142, 211, .18) 301px 309px, transparent 322px);
+      pointer-events: none;
+    }
+
+    .visual-rings::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 72px;
+      background:
+        radial-gradient(circle at 64px 80px, var(--paper) 0 66px, transparent 67px) 0 0 / 128px 80px repeat-x;
+      pointer-events: none;
+    }
+
+    .orb-frame {
+      position: relative;
+      z-index: 1;
+      width: min(48vw, 470px);
+      min-width: 320px;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 10px solid var(--paper);
+      border-radius: 50%;
+      background: var(--dark);
+    }
+
+    .orb-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.06) contrast(1.05);
+      transform: scale(1.08);
     }
 
     .eyebrow {
@@ -358,31 +431,39 @@
 
     .marquee {
       overflow: hidden;
-      padding: 26px 0;
-      border-block: 3px solid var(--dark);
-      background: var(--dark);
-      color: var(--paper);
+      height: 330px;
+      padding: 0;
+      background: transparent;
+      color: var(--dark);
     }
 
     .track {
-      display: flex;
-      width: max-content;
-      gap: 18px;
-      animation: slide 24s linear infinite;
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
 
     .brand-chip {
       display: flex;
       align-items: center;
       gap: 12px;
+      position: absolute;
+      top: 0;
+      left: 0;
       min-width: 230px;
       padding: 14px 18px;
-      border: 2px solid var(--paper);
+      border: 3px solid var(--dark);
       border-radius: 999px;
-      background: rgba(255, 254, 245, .08);
+      background: rgba(255, 254, 245, .86);
+      box-shadow: 0 7px 0 var(--dark);
       font-family: "Fragment Mono", monospace;
       font-size: 16px;
+      font-weight: 900;
       white-space: nowrap;
+      offset-path: path("M -520 205 C -280 205 -190 64 -20 82 C 155 101 220 238 400 215 C 585 191 645 61 820 78 C 1000 96 1070 238 1250 215 C 1440 191 1510 64 1700 84 C 1880 103 1960 218 2140 205");
+      offset-rotate: auto;
+      animation: pathTicker 18s linear infinite;
+      will-change: offset-distance;
     }
 
     .brand-chip img {
@@ -394,9 +475,26 @@
       padding: 7px;
     }
 
-    @keyframes slide {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+    .brand-chip:nth-child(5n + 1) { background: #fffef5; }
+    .brand-chip:nth-child(5n + 2) { background: #f6c2f4; }
+    .brand-chip:nth-child(5n + 3) { background: #c0ecbf; }
+    .brand-chip:nth-child(5n + 4) { background: #fafabf; }
+    .brand-chip:nth-child(5n + 5) { background: #fae0be; }
+
+    .brand-chip:nth-child(1) { animation-delay: -0.0s; }
+    .brand-chip:nth-child(2) { animation-delay: -1.8s; }
+    .brand-chip:nth-child(3) { animation-delay: -3.6s; }
+    .brand-chip:nth-child(4) { animation-delay: -5.4s; }
+    .brand-chip:nth-child(5) { animation-delay: -7.2s; }
+    .brand-chip:nth-child(6) { animation-delay: -9.0s; }
+    .brand-chip:nth-child(7) { animation-delay: -10.8s; }
+    .brand-chip:nth-child(8) { animation-delay: -12.6s; }
+    .brand-chip:nth-child(9) { animation-delay: -14.4s; }
+    .brand-chip:nth-child(10) { animation-delay: -16.2s; }
+
+    @keyframes pathTicker {
+      from { offset-distance: 0%; }
+      to { offset-distance: 100%; }
     }
 
     .stats {
@@ -433,15 +531,18 @@
     .services { background: var(--cream); }
 
     .service-layout {
-      display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 28px;
-      align-items: stretch;
+      width: min(100%, 760px);
+      margin: 0 auto;
     }
 
     .service-menu {
       display: grid;
       gap: 12px;
+    }
+
+    .service-item {
+      display: grid;
+      gap: 0;
     }
 
     .service-tab {
@@ -458,13 +559,17 @@
       cursor: pointer;
       text-align: left;
       font-weight: 900;
+      width: 100%;
     }
 
-    .service-tab.active { background: var(--pink); transform: translateY(3px); box-shadow: 0 3px 0 var(--dark); }
+    .service-tab.active { transform: translateY(3px); box-shadow: 0 3px 0 var(--dark); }
 
-    .service-tab:nth-of-type(2) { background: #F6D6B8; }
-    .service-tab:nth-of-type(3) { background: #B8E3DD; }
-    .service-tab:nth-of-type(4) { background: #E7DFAF; }
+    .service-item:nth-child(1) .service-tab { background: var(--pink); }
+    .service-item:nth-child(2) .service-tab { background: #F6D6B8; }
+    .service-item:nth-child(3) .service-tab { background: #B8E3DD; }
+    .service-item:nth-child(4) .service-tab { background: #E7DFAF; }
+
+    .service-tab.active .plus { transform: rotate(45deg); }
 
     .plus {
       display: grid;
@@ -477,15 +582,21 @@
       background: var(--yellow);
       font-size: 24px;
       line-height: 1;
+      transition: transform .25s ease;
     }
 
     .service-panel {
-      min-height: 560px;
+      display: none;
+      margin: 14px 0 18px;
       padding: 24px;
       border: 3px solid var(--dark);
       border-radius: 34px;
       background: var(--lavender);
       box-shadow: var(--shadow);
+    }
+
+    .service-panel.open {
+      display: block;
     }
 
     .service-panel h3 {
@@ -526,8 +637,22 @@
     }
 
     .why {
+      position: relative;
+      margin-top: 70px;
       background: var(--dark);
       color: var(--paper);
+    }
+
+    .why::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -70px;
+      height: 72px;
+      background:
+        radial-gradient(circle at 64px 72px, var(--dark) 0 66px, transparent 67px) 0 0 / 128px 80px repeat-x;
+      pointer-events: none;
     }
 
     .why p { color: rgba(255, 254, 245, .75); }
@@ -698,74 +823,38 @@
       filter: drop-shadow(0 14px 0 rgba(59, 0, 27, .16));
     }
 
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+    .testimonials {
+      background: var(--peach);
     }
 
-    .price-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 460px;
-      padding: 24px;
+    .about-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .about-copy,
+    .about-panel {
       border: 3px solid var(--dark);
       border-radius: 32px;
       background: var(--cream);
       box-shadow: 0 8px 0 var(--dark);
+      padding: 28px;
     }
 
-    .price-card.featured {
-      background: var(--yellow);
-      transform: translateY(-14px);
-    }
-
-    .price {
-      margin: 18px 0;
-      font-family: Oswald, sans-serif;
-      font-size: 68px;
-      line-height: .9;
-      letter-spacing: -.03em;
-    }
-
-    .price small {
-      font-family: Inter, sans-serif;
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .checks {
-      display: grid;
-      gap: 12px;
-      margin: 18px 0 24px;
-      padding: 0;
-      list-style: none;
-    }
-
-    .checks li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-weight: 700;
-      color: rgba(59, 0, 27, .82);
-    }
-
-    .checks li::before {
-      content: "";
-      flex: 0 0 18px;
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      border: 2px solid var(--dark);
-      border-radius: 50%;
+    .about-panel {
       background: var(--mint);
-      box-shadow: inset 0 0 0 4px var(--cream);
+      display: grid;
+      gap: 14px;
     }
 
-    .price-card .btn { margin-top: auto; }
-
-    .testimonials {
-      background: var(--peach);
+    .about-panel div {
+      padding: 18px;
+      border: 2px solid var(--dark);
+      border-radius: 22px;
+      background: rgba(255, 254, 245, .72);
+      font-weight: 900;
     }
 
     .testimonial-row {
@@ -918,7 +1007,7 @@
       .nav > .btn { display: none; }
       .benefit-grid,
       .why-grid,
-      .pricing-grid,
+      .about-grid,
       .testimonial-row { grid-template-columns: repeat(2, 1fr); }
       .service-layout,
       .process-card { grid-template-columns: 1fr; }
@@ -931,16 +1020,18 @@
       .section { padding: 72px 16px; }
       .hero { padding-top: 118px; }
       .wordmark { font-size: clamp(54px, 18vw, 86px); letter-spacing: -.055em; }
-      .tagline { font-size: 34px; }
+      .tagline { font-size: 32px; }
+      .tagline span { white-space: normal; }
       .hero-pill { display: none; }
+      .visual-rings { min-height: 430px; }
+      .orb-frame { min-width: 230px; width: 72vw; border-width: 7px; }
       .benefit-grid,
       .why-grid,
       .portfolio-grid,
-      .pricing-grid,
+      .about-grid,
       .testimonial-row,
       .stats { grid-template-columns: 1fr; }
       .image-strip { grid-template-columns: 1fr 1fr; }
-      .price-card.featured { transform: none; }
       .project-body { flex-direction: column; align-items: flex-start; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
@@ -956,8 +1047,8 @@
       <a href="#services">Services</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#process">Process</a>
-      <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
+      <a href="#about">About Us</a>
     </div>
     <a class="btn" href="#contact">Get Template</a>
   </nav>
@@ -970,8 +1061,14 @@
         <div class="hero-pill">Edgy</div>
         <div class="hero-pill">Playful</div>
         <h1 class="wordmark">VYNTRA MEDIA</h1>
-        <p class="tagline">Your brand deserves to be seen, heard, and remembered.</p>
+        <p class="tagline"><span>Your brand deserves to be</span><span>Seen, Heard and Remembered</span></p>
         <a class="btn" href="#services">View Services</a>
+      </div>
+    </section>
+
+    <section class="visual-rings reveal" aria-label="Vyntra Media creative showcase">
+      <div class="orb-frame">
+        <img src="https://framerusercontent.com/images/ILWmxYp9ZPgSfrZrsJkMC6oTsE.jpg?scale-down-to=2048" alt="Creative portfolio montage">
       </div>
     </section>
 
@@ -1037,18 +1134,23 @@
         <h2 class="section-title">What we do really well</h2>
         <div class="service-layout">
           <div class="service-menu">
-            <button class="service-tab active" data-service="0">Branding & Identity <span class="plus">+</span></button>
-            <button class="service-tab" data-service="1">Web Design & Development <span class="plus">+</span></button>
-            <button class="service-tab" data-service="2">Content Creation <span class="plus">+</span></button>
-            <button class="service-tab" data-service="3">Digital Marketing <span class="plus">+</span></button>
+            <div class="service-item">
+              <button class="service-tab active" data-service="0">Branding & Identity <span class="plus">+</span></button>
+              <article class="service-panel open"></article>
+            </div>
+            <div class="service-item">
+              <button class="service-tab" data-service="1">Web Design & Development <span class="plus">+</span></button>
+              <article class="service-panel"></article>
+            </div>
+            <div class="service-item">
+              <button class="service-tab" data-service="2">Content Creation <span class="plus">+</span></button>
+              <article class="service-panel"></article>
+            </div>
+            <div class="service-item">
+              <button class="service-tab" data-service="3">Digital Marketing <span class="plus">+</span></button>
+              <article class="service-panel"></article>
+            </div>
           </div>
-          <article class="service-panel">
-            <h3 id="serviceTitle">Branding & Identity</h3>
-            <p id="serviceIntro">Distinctive brand systems for teams that want to look intentional, memorable, and ready for the next stage.</p>
-            <div class="tags" id="serviceTags"></div>
-            <p id="serviceBody">We shape the visual language, strategy, logo suite, and everyday rules that make your brand easier to recognize and easier to trust.</p>
-            <div class="image-strip" id="serviceImages"></div>
-          </article>
         </div>
       </div>
     </section>
@@ -1113,51 +1215,6 @@
       </div>
     </section>
 
-    <section class="section reveal" id="pricing">
-      <div class="wrap">
-        <span class="eyebrow">Pricing</span>
-        <h2 class="section-title">Pick your creative lane</h2>
-        <div class="pricing-grid">
-          <article class="price-card">
-            <h3>Starter Spark</h3>
-            <p>For founders who need a polished launch kit.</p>
-            <div class="price">$999<small>/project</small></div>
-            <ul class="checks">
-              <li>Logo direction</li>
-              <li>Color and type kit</li>
-              <li>Mini landing page</li>
-              <li>One revision sprint</li>
-            </ul>
-            <a class="btn" href="#contact">Start</a>
-          </article>
-          <article class="price-card featured">
-            <h3>Brand Builder</h3>
-            <p>For teams ready for a complete public-facing system.</p>
-            <div class="price">$2.9k<small>/project</small></div>
-            <ul class="checks">
-              <li>Brand identity system</li>
-              <li>Responsive website</li>
-              <li>Content direction</li>
-              <li>Marketing launch assets</li>
-            </ul>
-            <a class="btn" href="#contact">Choose Plan</a>
-          </article>
-          <article class="price-card">
-            <h3>Growth Studio</h3>
-            <p>For companies that want ongoing creative output.</p>
-            <div class="price">$6k<small>/month</small></div>
-            <ul class="checks">
-              <li>Dedicated design squad</li>
-              <li>Campaign creative</li>
-              <li>Monthly strategy review</li>
-              <li>Priority production queue</li>
-            </ul>
-            <a class="btn" href="#contact">Book</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="section testimonials reveal">
       <div class="wrap">
         <span class="eyebrow">Testimonials</span>
@@ -1196,6 +1253,24 @@
             <summary>Can the remote images be downloaded locally?</summary>
             <p>Yes. The current file references Framer-hosted assets so it stays light. Those can be mirrored into a local assets folder later.</p>
           </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="about">
+      <div class="wrap">
+        <span class="eyebrow">About Us</span>
+        <h2 class="section-title">Small team, loud ideas</h2>
+        <div class="about-grid">
+          <article class="about-copy">
+            <h3>We shape brands that people can spot from across the room.</h3>
+            <p>Vyntra Media is a compact creative studio focused on brand identity, digital experiences, and campaign systems. We mix sharp strategy with playful execution so every visual choice has a reason to exist.</p>
+          </article>
+          <aside class="about-panel" aria-label="About Vyntra Media highlights">
+            <div>Strategy-led identity systems</div>
+            <div>Web experiences built for launches</div>
+            <div>Campaign assets that stay consistent</div>
+          </aside>
         </div>
       </div>
     </section>
@@ -1279,22 +1354,29 @@
       }
     ];
 
-    const title = document.querySelector("#serviceTitle");
-    const intro = document.querySelector("#serviceIntro");
-    const body = document.querySelector("#serviceBody");
-    const tags = document.querySelector("#serviceTags");
-    const images = document.querySelector("#serviceImages");
-    const panel = document.querySelector(".service-panel");
+    function serviceMarkup(item) {
+      return `
+        <h3>${item.title}</h3>
+        <p>${item.intro}</p>
+        <div class="tags">${item.tags.map(tag => `<span>${tag}</span>`).join("")}</div>
+        <p>${item.body}</p>
+        <div class="image-strip">${item.images.map(src => `<img src="${src}" alt="">`).join("")}</div>
+      `;
+    }
 
     function renderService(index) {
       const item = services[index];
-      title.textContent = item.title;
-      intro.textContent = item.intro;
-      body.textContent = item.body;
-      tags.innerHTML = item.tags.map(tag => `<span>${tag}</span>`).join("");
-      images.innerHTML = item.images.map(src => `<img src="${src}" alt="">`).join("");
-      panel.style.background = item.color;
-      document.querySelectorAll(".service-tab").forEach(tab => tab.classList.toggle("active", tab.dataset.service == index));
+      document.querySelectorAll(".service-item").forEach(serviceItem => {
+        const tab = serviceItem.querySelector(".service-tab");
+        const panel = serviceItem.querySelector(".service-panel");
+        const isActive = Number(tab.dataset.service) === index;
+        tab.classList.toggle("active", isActive);
+        panel.classList.toggle("open", isActive);
+        if (isActive) {
+          panel.innerHTML = serviceMarkup(item);
+          panel.style.background = item.color;
+        }
+      });
     }
 
     document.querySelectorAll(".service-tab").forEach(tab => {
