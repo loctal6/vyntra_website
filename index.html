@@ -601,33 +601,32 @@
     .brand-chip {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       position: absolute;
       top: 0;
       left: 0;
-      min-width: 238px;
-      padding: 14px 18px;
+      padding: 11px 15px;
       border: 3px solid var(--dark);
       border-radius: 999px;
       background: rgba(255, 254, 245, .86);
       box-shadow: 0 7px 0 var(--dark);
       font-family: "Fragment Mono", monospace;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 900;
       white-space: nowrap;
-      offset-path: path("M -520 170 C -280 170 -190 38 -20 58 C 155 78 220 205 400 178 C 585 151 645 36 820 58 C 1000 80 1070 204 1250 178 C 1440 151 1510 38 1700 60 C 1880 82 1960 190 2140 170");
+      offset-path: path("M -900 170 L -520 170 C -280 170 -190 38 -20 58 C 155 78 220 205 400 178 C 585 151 645 36 820 58 C 1000 80 1070 204 1250 178 C 1440 151 1510 38 1700 60 C 1880 82 1960 190 2140 170 L 2520 170");
       offset-rotate: auto;
-      animation: pathTicker 18s linear infinite;
+      animation: pathTicker 23s linear infinite;
       will-change: offset-distance;
     }
 
     .brand-chip img {
-      width: 62px;
-      height: 62px;
+      width: 52px;
+      height: 52px;
       object-fit: contain;
       background: var(--paper);
       border-radius: 50%;
-      padding: 8px;
+      padding: 6px;
     }
 
     .brand-chip:nth-child(5n + 1) { background: #fffef5; }
@@ -637,18 +636,18 @@
     .brand-chip:nth-child(5n + 5) { background: #fae0be; }
 
     .brand-chip:nth-child(1)  { animation-delay: 0s; }
-    .brand-chip:nth-child(2)  { animation-delay: -1.38s; }
-    .brand-chip:nth-child(3)  { animation-delay: -2.76s; }
-    .brand-chip:nth-child(4)  { animation-delay: -4.14s; }
-    .brand-chip:nth-child(5)  { animation-delay: -5.52s; }
-    .brand-chip:nth-child(6)  { animation-delay: -6.90s; }
-    .brand-chip:nth-child(7)  { animation-delay: -8.28s; }
-    .brand-chip:nth-child(8)  { animation-delay: -9.66s; }
-    .brand-chip:nth-child(9)  { animation-delay: -11.04s; }
-    .brand-chip:nth-child(10) { animation-delay: -12.42s; }
-    .brand-chip:nth-child(11) { animation-delay: -13.80s; }
-    .brand-chip:nth-child(12) { animation-delay: -15.18s; }
-    .brand-chip:nth-child(13) { animation-delay: -16.56s; }
+    .brand-chip:nth-child(2)  { animation-delay: -1.77s; }
+    .brand-chip:nth-child(3)  { animation-delay: -3.54s; }
+    .brand-chip:nth-child(4)  { animation-delay: -5.31s; }
+    .brand-chip:nth-child(5)  { animation-delay: -7.08s; }
+    .brand-chip:nth-child(6)  { animation-delay: -8.85s; }
+    .brand-chip:nth-child(7)  { animation-delay: -10.62s; }
+    .brand-chip:nth-child(8)  { animation-delay: -12.38s; }
+    .brand-chip:nth-child(9)  { animation-delay: -14.15s; }
+    .brand-chip:nth-child(10) { animation-delay: -15.92s; }
+    .brand-chip:nth-child(11) { animation-delay: -17.69s; }
+    .brand-chip:nth-child(12) { animation-delay: -19.46s; }
+    .brand-chip:nth-child(13) { animation-delay: -21.23s; }
 
     @keyframes pathTicker {
       from { offset-distance: 0%; }
@@ -1216,6 +1215,11 @@
       background: var(--yellow);
     }
 
+    .person strong {
+      font-size: 20px;
+      line-height: 1.1;
+    }
+
     .person img {
       width: 58px;
       height: 58px;
@@ -1233,6 +1237,26 @@
       font-size: 18px;
       line-height: 1.55;
       font-weight: 800;
+    }
+
+    .quote blockquote p {
+      margin: 0;
+    }
+
+    .quote-attribution {
+      display: block;
+      margin-top: 18px;
+      text-align: right;
+      font-family: Oswald, sans-serif;
+      font-size: 18px;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: rgba(59, 0, 27, .78);
+    }
+
+    .quote-attribution::before {
+      content: "~ ";
     }
 
     .faq-list {
@@ -1595,13 +1619,22 @@
         place-items: start center;
       }
       .marquee {
-        height: 570px;
+        height: 470px;
+        padding-top: 40px;
       }
       .track {
-        height: 300px;
+        height: 220px;
+      }
+      .brand-chip {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+      .brand-chip img {
+        width: 48px;
+        height: 48px;
       }
       .numbers .stats {
-        margin-top: 36px;
+        margin-top: 18px;
       }
       .orb-frame { min-width: 230px; width: 72vw; border-width: 7px; }
       .benefit-grid,
@@ -1684,7 +1717,7 @@
 
     <section class="visual-rings reveal" aria-label="Vyntra Media creative showcase">
       <div class="orb-frame">
-        <img src="https://framerusercontent.com/images/ILWmxYp9ZPgSfrZrsJkMC6oTsE.jpg?scale-down-to=2048" alt="Creative portfolio montage">
+        <img src="videos/download.gif" alt="Creative portfolio montage">
       </div>
     </section>
 
@@ -1796,9 +1829,9 @@
         <h2 class="section-title">Look what we made</h2>
         <div class="portfolio-rail" aria-label="Portfolio reels carousel">
           <div class="portfolio-grid" data-reel-track>
-            <article class="reel-card has-video"><video data-src="videos/1.mp4" muted loop playsinline preload="none"></video><span>Reel 01</span></article>
-            <article class="reel-card has-video"><video data-src="videos/2.mp4" muted loop playsinline preload="none"></video><span>Reel 02</span></article>
-            <article class="reel-card has-video"><video data-src="videos/3.mp4" muted loop playsinline preload="none"></video><span>Reel 03</span></article>
+            <article class="reel-card has-video"><video src="videos/1.mp4" muted loop autoplay playsinline preload="auto"></video><span>Reel 01</span></article>
+            <article class="reel-card has-video"><video src="videos/2.mp4" muted loop autoplay playsinline preload="auto"></video><span>Reel 02</span></article>
+            <article class="reel-card has-video"><video src="videos/3.mp4" muted loop autoplay playsinline preload="auto"></video><span>Reel 03</span></article>
             <article class="reel-card has-video"><video data-src="videos/4.mp4" muted loop playsinline preload="none"></video><span>Reel 04</span></article>
             <article class="reel-card has-video"><video data-src="videos/5.mp4" muted loop playsinline preload="none"></video><span>Reel 05</span></article>
             <article class="reel-card has-video"><video data-src="videos/6.mp4" muted loop playsinline preload="none"></video><span>Reel 06</span></article>
@@ -1851,24 +1884,24 @@
         <h2 class="section-title">Kind words, loud results</h2>
         <div class="testimonial-row">
           <article class="quote">
-            <div class="person"><img src="images/craev logo-1.png" alt=""><strong>Chinmaya (Craev)</strong></div>
-            <blockquote>VYNTRA MEDIA played an important role in strengthening our brand presence both online and offline. From website management to branding and growth support, their team brought fresh ideas and executed everything with great clarity and consistency.</blockquote>
+            <div class="person"><img src="images/craev logo-1.png" alt=""><strong>Craev</strong></div>
+            <blockquote><p>VYNTRA MEDIA played an important role in strengthening our brand presence both online and offline. From website management to branding and growth support, their team brought fresh ideas and executed everything with great clarity and consistency.</p><footer class="quote-attribution">Chinmaya</footer></blockquote>
           </article>
           <article class="quote">
-            <div class="person"><img src="images/somadfest.png" alt=""><strong>Eashwar Nanda (Somad Fest)</strong></div>
-            <blockquote>Working with VYNTRA MEDIA for our event promotions was a great experience. Their influencer and UGC campaigns created genuine excitement around the festival and helped us reach a much wider audience organically.</blockquote>
+            <div class="person"><img src="images/somadfest.png" alt=""><strong>Somad Fest</strong></div>
+            <blockquote><p>Working with VYNTRA MEDIA for our event promotions was a great experience. Their influencer and UGC campaigns created genuine excitement around the festival and helped us reach a much wider audience organically.</p><footer class="quote-attribution">Eashwar Nanda</footer></blockquote>
           </article>
           <article class="quote">
-            <div class="person"><img src="images/wtflexx.png" alt=""><strong>Adiya Rathore (WTFlex)</strong></div>
-            <blockquote>The team brought fresh campaign ideas and connected us with the right creators for our brand. The UGC content felt natural, engaging, and helped improve overall campaign visibility and engagement.</blockquote>
+            <div class="person"><img src="images/wtflexx.png" alt=""><strong>WTFlex</strong></div>
+            <blockquote><p>The team brought fresh campaign ideas and connected us with the right creators for our brand. The UGC content felt natural, engaging, and helped improve overall campaign visibility and engagement.</p><footer class="quote-attribution">Adiya Rathore</footer></blockquote>
           </article>
           <article class="quote">
-            <div class="person"><img src="images/blume_logo-01.png" alt=""><strong>Vansh (Blume Life)</strong></div>
-            <blockquote>VYNTRA MEDIA has been managing our social media and influencer activities with great attention to detail. Their consistency, creative direction, and growth-focused approach have helped strengthen our brand presence online.</blockquote>
+            <div class="person"><img src="images/blume_logo-01.png" alt=""><strong>Blume Life</strong></div>
+            <blockquote><p>VYNTRA MEDIA has been managing our social media and influencer activities with great attention to detail. Their consistency, creative direction, and growth-focused approach have helped strengthen our brand presence online.</p><footer class="quote-attribution">Vansh</footer></blockquote>
           </article>
           <article class="quote">
             <div class="person"><img src="images/fwd.png" alt=""><strong>FWD Home Interior</strong></div>
-            <blockquote>From influencer marketing to paid ads and complete brand management, the VYNTRA MEDIA team has handled everything professionally. Their understanding of aesthetics, branding, and audience growth has added real value to our business.</blockquote>
+            <blockquote><p>From influencer marketing to paid ads and complete brand management, the VYNTRA MEDIA team has handled everything professionally. Their understanding of aesthetics, branding, and audience growth has added real value to our business.</p><footer class="quote-attribution">FWD Home Interior Team</footer></blockquote>
           </article>
         </div>
       </div>
@@ -2167,6 +2200,21 @@
     const reelTrack = document.querySelector("[data-reel-track]");
     const reelVideos = Array.from(document.querySelectorAll(".reel-card video"));
 
+    reelVideos.forEach((video, index) => {
+      video.playsInline = true;
+      video.muted = true;
+      video.loop = true;
+
+      if (index < 3) {
+        if (!video.src && video.dataset.src) video.src = video.dataset.src;
+        video.preload = "auto";
+        video.autoplay = true;
+        video.load();
+      } else {
+        video.preload = "metadata";
+      }
+    });
+
     function syncReelVideos() {
       if (!reelRail || !reelVideos.length) return;
 
@@ -2178,7 +2226,11 @@
         const nearRail = box.right > railBox.left - preloadZone && box.left < railBox.right + preloadZone;
 
         if (nearRail) {
-          if (!video.src && video.dataset.src) video.src = video.dataset.src;
+          if (!video.src && video.dataset.src) {
+            video.src = video.dataset.src;
+            video.load();
+          }
+          video.preload = "auto";
           const playPromise = video.play();
           if (playPromise) playPromise.catch(() => {});
         } else {
