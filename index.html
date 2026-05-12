@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="https://framerusercontent.com/images/VD3ygwjX5DbcWzaqdIGJVyR0lUA.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fefae7'/%3E%3Ctext x='32' y='48' text-anchor='middle' font-family='Arial Black, Impact, sans-serif' font-size='48' font-weight='900' fill='%233b001b'%3EV%3C/text%3E%3C/svg%3E">
   <style>
     :root {
       --dark: #3b001b;
@@ -113,6 +113,10 @@
 
     .nav-links a:hover { background: var(--soft-yellow); }
 
+    .mobile-only-link {
+      display: none;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -210,7 +214,9 @@
 
     .tagline span {
       display: block;
-      white-space: nowrap;
+      max-width: 100%;
+      white-space: normal;
+      text-wrap: balance;
     }
 
     .hero-pill {
@@ -560,8 +566,8 @@
 
     .marquee {
       overflow: hidden;
-      height: 540px;
-      padding: 54px 0 0;
+      height: 590px;
+      padding: 72px 0 0;
       background: transparent;
       color: var(--dark);
     }
@@ -573,7 +579,17 @@
     }
 
     .marquee-heading .section-title {
-      margin-bottom: 14px;
+      margin-bottom: 8px;
+    }
+
+    .marquee-subtitle {
+      margin: 0 auto 30px;
+      color: var(--dark);
+      font-family: Oswald, sans-serif;
+      font-size: clamp(24px, 4vw, 56px);
+      font-weight: 700;
+      line-height: 1;
+      text-transform: uppercase;
     }
 
     .track {
@@ -652,6 +668,11 @@
       border: 3px solid var(--dark);
       border-radius: 28px;
       background: var(--yellow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       text-align: center;
       box-shadow: 0 8px 0 var(--dark);
     }
@@ -700,7 +721,7 @@
       top: -70px;
       height: 72px;
       background:
-        radial-gradient(circle at 64px 72px, var(--paper) 0 66px, transparent 67px) 0 0 / 128px 80px repeat-x;
+        radial-gradient(circle at 64px 72px, var(--cream) 0 66px, transparent 67px) 0 0 / 128px 80px repeat-x;
       pointer-events: none;
     }
 
@@ -1143,18 +1164,45 @@
     }
 
     .testimonial-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
       gap: 18px;
+      margin-inline: calc((100% - 100vw) / 2);
+      padding: 0 max(22px, calc((100vw - var(--max)) / 2)) 18px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(59, 0, 27, .34) transparent;
+    }
+
+    .testimonial-row.is-paused {
+      scroll-snap-type: none;
+    }
+
+    .testimonial-row::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .testimonial-row::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .testimonial-row::-webkit-scrollbar-thumb {
+      border: 3px solid transparent;
+      border-radius: 999px;
+      background: rgba(59, 0, 27, .34);
+      background-clip: content-box;
     }
 
     .quote {
+      flex: 0 0 min(390px, calc(100vw - 44px));
       min-height: 340px;
       padding: 18px;
       border: 3px solid var(--dark);
       border-radius: 32px;
       background: var(--cream);
       box-shadow: 0 8px 0 var(--dark);
+      scroll-snap-align: start;
     }
 
     .person {
@@ -1487,6 +1535,10 @@
       font-size: 13px;
     }
 
+    .socials a[href^="mailto:"] {
+      background: rgba(255, 254, 245, .12);
+    }
+
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -1513,11 +1565,11 @@
         border: 3px solid var(--dark);
       }
       .nav-links.open { display: flex; }
+      .nav-links .mobile-only-link { display: block; }
       .nav > .btn { display: none; }
       .benefit-grid,
       .why-grid,
-      .about-grid,
-      .testimonial-row { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: repeat(2, 1fr); }
       .service-layout,
       .process-card { grid-template-columns: 1fr; }
       .stats { grid-template-columns: repeat(2, 1fr); }
@@ -1527,20 +1579,25 @@
 
     @media (max-width: 680px) {
       .section { padding: 72px 16px; }
-      .hero { min-height: 560px; padding: 108px 16px 10px; }
+      .hero { min-height: auto; padding: 108px 16px 24px; }
+      .hero-inner { min-height: auto; }
       .wordmark { font-size: clamp(54px, 18vw, 86px); letter-spacing: -.055em; }
       .tagline {
         width: min(100%, 620px);
-        font-size: clamp(22px, 7vw, 32px);
+        margin: 16px auto 18px;
+        font-size: clamp(20px, 6.1vw, 30px);
         line-height: 1.12;
       }
       .hero-pill { display: none; }
-      .visual-rings { min-height: 430px; }
+      .visual-rings {
+        min-height: 300px;
+        padding-top: 6px;
+        place-items: start center;
+      }
       .orb-frame { min-width: 230px; width: 72vw; border-width: 7px; }
       .benefit-grid,
       .why-grid,
       .about-grid,
-      .testimonial-row,
       .stats { grid-template-columns: 1fr; }
       summary {
         width: 100%;
@@ -1557,7 +1614,8 @@
         padding-top: 112px;
       }
       .contact-panel {
-        padding: 78px 16px 64px;
+        margin-bottom: 36px;
+        padding: 78px 16px 82px;
       }
       .contact-shell {
         grid-template-columns: 1fr;
@@ -1575,6 +1633,9 @@
       }
       .giant-wordmark {
         font-size: clamp(38px, 14.5vw, 82px);
+      }
+      .cta {
+        padding-top: 112px;
       }
       .reel-card { flex-basis: min(72vw, 300px); }
       .image-strip { grid-template-columns: 1fr 1fr; }
@@ -1594,8 +1655,9 @@
       <a href="#process">Process</a>
       <a href="#faq">FAQ</a>
       <a href="#about">About Us</a>
+      <a class="mobile-only-link" href="#contact">Contact Us</a>
     </div>
-    <a class="btn" href="#contact">Get Template</a>
+    <a class="btn" href="#contact">Contact Us</a>
   </nav>
 
   <main>
@@ -1649,6 +1711,7 @@
       <div class="wrap marquee-heading">
         <span class="eyebrow">Numbers</span>
         <h2 class="section-title">We built the rocket</h2>
+        <p class="marquee-subtitle">They flew</p>
       </div>
       <div class="track">
 <div class="brand-chip"><img src="images/craev logo-1.png" alt="">Craev</div>
@@ -1670,10 +1733,10 @@
     <section class="section numbers reveal">
       <div class="wrap center">
         <div class="stats">
-          <div class="stat"><b data-count="15">0</b><span>Brands launched</span></div>
-          <div class="stat"><b data-count="150">0</b><span>Projects delivered</span></div>
-          <div class="stat"><b data-count="400">0</b><span>Moodboards made</span></div>
-          <div class="stat"><b data-count="99">0</b><span>Happy clients</span></div>
+          <div class="stat"><b data-count="2000" data-suffix="+">0</b><span>Influencers in Network</span></div>
+          <div class="stat"><b data-count="800" data-suffix="+">0</b><span>Campaigns Delivered</span></div>
+          <div class="stat"><b data-count="50" data-suffix="+">0</b><span>Brand Partners</span></div>
+          <div class="stat"><b data-count="5" data-suffix="+">0</b><span>Years of Expertise</span></div>
         </div>
       </div>
     </section>
@@ -1779,16 +1842,24 @@
         <h2 class="section-title">Kind words, loud results</h2>
         <div class="testimonial-row">
           <article class="quote">
-            <div class="person"><img src="https://framerusercontent.com/images/ciqeScb6bZagxmIXqN70lJt6x10.jpg?scale-down-to=512&width=3440&height=3440" alt=""><strong>Callum Yates</strong></div>
-            <blockquote>The team gave our brand a sharper voice and a visual system that finally feels like us.</blockquote>
+            <div class="person"><img src="https://framerusercontent.com/images/ciqeScb6bZagxmIXqN70lJt6x10.jpg?scale-down-to=512&width=3440&height=3440" alt=""><strong>Craev</strong></div>
+            <blockquote>VYNTRA MEDIA played an important role in strengthening our brand presence both online and offline. From website management to branding and growth support, their team brought fresh ideas and executed everything with great clarity and consistency.</blockquote>
           </article>
           <article class="quote">
-            <div class="person"><img src="https://framerusercontent.com/images/NE0HbZCpk08RqUBmljkId4i3oEw.jpg?scale-down-to=512&width=1248&height=1233" alt=""><strong>Jasper Lowell</strong></div>
-            <blockquote>The process was direct, creative, and surprisingly smooth. We launched faster than expected.</blockquote>
+            <div class="person"><img src="https://framerusercontent.com/images/NE0HbZCpk08RqUBmljkId4i3oEw.jpg?scale-down-to=512&width=1248&height=1233" alt=""><strong>Somad Fest</strong></div>
+            <blockquote>Working with VYNTRA MEDIA for our event promotions was a great experience. Their influencer and UGC campaigns created genuine excitement around the festival and helped us reach a much wider audience organically.</blockquote>
           </article>
           <article class="quote">
-            <div class="person"><img src="https://framerusercontent.com/images/Zm4yodZZxdIXJhenN7bdKUq5KM.jpg?width=144&height=147" alt=""><strong>Lowell Vance</strong></div>
-            <blockquote>Every detail felt considered. The final identity looked premium without losing our personality.</blockquote>
+            <div class="person"><img src="https://framerusercontent.com/images/Zm4yodZZxdIXJhenN7bdKUq5KM.jpg?width=144&height=147" alt=""><strong>WTFlex</strong></div>
+            <blockquote>The team brought fresh campaign ideas and connected us with the right creators for our brand. The UGC content felt natural, engaging, and helped improve overall campaign visibility and engagement.</blockquote>
+          </article>
+          <article class="quote">
+            <div class="person"><img src="https://framerusercontent.com/images/ciqeScb6bZagxmIXqN70lJt6x10.jpg?scale-down-to=512&width=3440&height=3440" alt=""><strong>Blume Life</strong></div>
+            <blockquote>VYNTRA MEDIA has been managing our social media and influencer activities with great attention to detail. Their consistency, creative direction, and growth-focused approach have helped strengthen our brand presence online.</blockquote>
+          </article>
+          <article class="quote">
+            <div class="person"><img src="https://framerusercontent.com/images/NE0HbZCpk08RqUBmljkId4i3oEw.jpg?scale-down-to=512&width=1248&height=1233" alt=""><strong>FWD Home Interior</strong></div>
+            <blockquote>From influencer marketing to paid ads and complete brand management, the VYNTRA MEDIA team has handled everything professionally. Their understanding of aesthetics, branding, and audience growth has added real value to our business.</blockquote>
           </article>
         </div>
       </div>
@@ -1830,7 +1901,7 @@
         <div class="about-grid">
           <article class="about-copy">
             <h3>We shape brands that people can spot from across the room.</h3>
-            <p>Vyntra Media is a compact creative studio focused on brand identity, digital experiences, and campaign systems. We mix sharp strategy with playful execution so every visual choice has a reason to exist.</p>
+            <p>Vyntra Media is a compact creative agency focused on brand identity, digital experiences, and campaign systems. We mix sharp strategy with playful execution so every visual choice has a reason to exist.</p>
           </article>
           <aside class="about-panel" aria-label="About Vyntra Media highlights">
             <div>Strategy-led identity systems</div>
@@ -1844,7 +1915,7 @@
     <section class="contact-panel reveal" id="contact">
       <div class="wrap contact-shell">
         <div class="contact-copy">
-          <span class="contact-badge">Vyntra Media</span>
+          <span class="contact-badge">Contact Us</span>
           <img class="contact-illustration" src="https://framerusercontent.com/images/yquj0OAqxnnqWfUpCEXOVx6Wo.png?scale-down-to=512&width=1024&height=1024" alt="Illustrated character with a Let&apos;s Go button">
           <h2>Need a custom quote?</h2>
           <p>Don&apos;t let your ideas sit idle. Slide into our inbox and let&apos;s make magic.</p>
@@ -1885,6 +1956,7 @@
       <div class="socials">
         <a href="https://www.instagram.com/vyntramedia.in?igsh=OHFqYzF5eG12b2d4&utm_source=qr">Instagram</a>
         <a href="https://www.linkedin.com/company/vyntra-media/">LinkedIn</a>
+        <a href="mailto:contact@vyntrameadia.in">Email</a>
       </div>
       <strong>Creative agency portfolio clone</strong>
     </div>
@@ -1896,12 +1968,53 @@
     menuToggle.addEventListener("click", () => navLinks.classList.toggle("open"));
     navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => navLinks.classList.remove("open")));
 
+    const testimonialRow = document.querySelector(".testimonial-row");
+    if (testimonialRow && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const originalCards = Array.from(testimonialRow.children);
+      originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        testimonialRow.appendChild(clone);
+      });
+
+      let lastTestimonialFrame = performance.now();
+      let testimonialPauseUntil = 0;
+      const testimonialSpeed = 32;
+
+      function pauseTestimonials() {
+        testimonialPauseUntil = performance.now() + 3200;
+      }
+
+      function autoScrollTestimonials(now) {
+        const delta = Math.min(48, now - lastTestimonialFrame);
+        lastTestimonialFrame = now;
+
+        if (now >= testimonialPauseUntil) {
+          testimonialRow.classList.add("is-paused");
+          const loopWidth = testimonialRow.scrollWidth / 2;
+          if (testimonialRow.scrollLeft >= loopWidth) {
+            testimonialRow.scrollLeft -= loopWidth;
+          }
+          testimonialRow.scrollLeft += (testimonialSpeed * delta) / 1000;
+        } else {
+          testimonialRow.classList.remove("is-paused");
+        }
+
+        requestAnimationFrame(autoScrollTestimonials);
+      }
+
+      testimonialRow.addEventListener("wheel", pauseTestimonials, { passive: true });
+      testimonialRow.addEventListener("touchstart", pauseTestimonials, { passive: true });
+      testimonialRow.addEventListener("pointerdown", pauseTestimonials);
+      requestAnimationFrame(autoScrollTestimonials);
+    }
+
     const services = [
       {
         title: "Branding & Identity",
         intro: "Distinctive brand systems for teams that want to look intentional, memorable, and ready for the next stage.",
         body: "We shape the visual language, strategy, logo suite, and everyday rules that make your brand easier to recognize and easier to trust.",
-        tags: ["Logo Design", "Brand Strategy", "Visual Identity", "Guidelines", "Content Marketing"],
+        tags: ["Logo Design", "Brand Strategy", "Visual Identity", "Guidelines", "Content Marketing", "AI Videos"],
         images: [
           "https://framerusercontent.com/images/5nl7sazg0CzelFS34Rri4RYsog.png?scale-down-to=512&width=1536&height=1024",
           "https://framerusercontent.com/images/6eZVqyYqcOCfFZlPmDGLaecTpk.jpg?scale-down-to=1024&width=2175&height=2377",
@@ -1937,7 +2050,7 @@
         title: "Digital Marketing",
         intro: "Campaign thinking that helps your brand show up in the right place with the right message.",
         body: "We connect strategy, paid channels, social creative, and measurement so the work is not just attractive, but useful.",
-        tags: ["Social Media", "SEO & SEM", "Email", "Paid Ads", "Influencers", "Blog Strategy"],
+        tags: ["Social Media", "SEO & SEM", "Email", "Paid Ads", "Influencers", "Blog Strategy", "UGC Content"],
         images: [
           "https://framerusercontent.com/images/NNPCXTEy29Dqfd5bq3k503a9U.png?scale-down-to=1024",
           "https://framerusercontent.com/images/oL6KWHpSZtTgFXniPZfKC8nygcY.png?scale-down-to=1024",
@@ -1953,7 +2066,6 @@
         <p>${item.intro}</p>
         <div class="tags">${item.tags.map(tag => `<span>${tag}</span>`).join("")}</div>
         <p>${item.body}</p>
-        <div class="image-strip">${item.images.map(src => `<img src="${src}" alt="">`).join("")}</div>
       `;
     }
 
@@ -2030,12 +2142,12 @@
       counted = true;
       document.querySelectorAll("[data-count]").forEach(el => {
         const target = Number(el.dataset.count);
-        const suffix = target === 99 ? "%" : "+";
+        const suffix = el.dataset.suffix || "";
         let current = 0;
         const step = Math.max(1, Math.round(target / 54));
         const timer = setInterval(() => {
           current = Math.min(target, current + step);
-          el.textContent = current + suffix;
+          el.textContent = current.toLocaleString() + suffix;
           if (current >= target) clearInterval(timer);
         }, 24);
       });
