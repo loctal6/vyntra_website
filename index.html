@@ -313,12 +313,16 @@
       background: var(--dark);
     }
 
-    .orb-frame img {
+    .orb-frame video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: saturate(1.06) contrast(1.05);
       transform: scale(1.08);
+    }
+
+    .orb-frame {
+      animation: slowRotate 40s linear infinite;
     }
 
     .eyebrow {
@@ -502,6 +506,15 @@
       50% { transform: translate3d(-8px, -14px, 0) rotate(5deg); }
     }
 
+    @keyframes slowRotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
     @keyframes softFloatAlt {
       0%, 100% { translate: 0 0; }
       50% { translate: 8px -16px; }
@@ -1722,7 +1735,9 @@
 
     <section class="visual-rings reveal" aria-label="Vyntra Media creative showcase">
       <div class="orb-frame">
-        <img src="videos/download.gif" alt="Creative portfolio montage">
+        <video autoplay muted loop playsinline>
+          <source src="videos/download.mp4" type="video/mp4">
+        </video>
       </div>
     </section>
 
@@ -1795,8 +1810,8 @@
         <div class="service-layout">
           <div class="service-menu">
             <div class="service-item">
-              <button class="service-tab active" data-service="0">Branding & Identity <span class="plus">+</span></button>
-              <article class="service-panel open"></article>
+              <button class="service-tab" data-service="0">Branding & Identity <span class="plus">+</span></button>
+              <article class="service-panel"></article>
             </div>
             <div class="service-item">
               <button class="service-tab" data-service="1">Web Design & Development <span class="plus">+</span></button>
@@ -1917,11 +1932,11 @@
         <span class="eyebrow">FAQ</span>
         <h2 class="section-title">Tiny questions, big answers</h2>
         <div class="faq-list">
-          <details open>
+          <details>
             <summary>What services do you offer?</summary>
             <p>We specialize in branding, web design, content creation, social media management, and creative strategy. Basically, if it needs a creative touch, we're your people.</p>
           </details>
-          <details open>
+          <details>
             <summary>How long does a typical project take?</summary>
             <p>It depends on the scope. A simple logo design might take a week, while a full brand overhaul can take a few months. We'll give you a clear timeline upfront and keep you updated throughout.</p>
           </details>
